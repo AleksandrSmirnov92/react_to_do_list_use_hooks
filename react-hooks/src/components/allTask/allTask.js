@@ -1,10 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
 import AllTaskCSS from "./allTask.module.css"
-export const AllTask = () => {
+export const AllTask = (props) => {
+   let [task, setTask] = useState(props.storeAlltask.alltask.task)
    return (
-      <div className={AllTaskCSS.add_task_result1}  >
+      task.map((x,index)=>{
+         return (
+            <div className={AllTaskCSS.add_task_result1}  >
             <span className={AllTaskCSS.add_task_result_text}>
-               Message
+               {x.massage}
             </span>
             <div>
               <input type="checkbox" />
@@ -13,6 +16,8 @@ export const AllTask = () => {
               </button>
             </div>
           </div>
+         )
+      })
         );
    
    
