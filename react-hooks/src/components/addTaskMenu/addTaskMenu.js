@@ -1,3 +1,4 @@
+import { getSelectionRange } from "@testing-library/user-event/dist/utils"
 import React, { useRef, useState , useEffect} from "react"
 import AddTaskCSS from "./addTaskMenu.module.css"
 
@@ -9,8 +10,7 @@ export const AddTaskMenu = (props) => {
   setinput(refText.current.value)
   }
  const addTask = () => {
-   props.addpost({id: 0, massage: input, checked: false })
-   alert (input)
+   props.setStore([...props.getStore,{id: Math.random(), massage: input, checked: false }])
    setinput('')
  }
    return(

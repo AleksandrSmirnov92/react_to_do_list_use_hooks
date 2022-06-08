@@ -14,14 +14,6 @@ let store = {
 
     counter: 0,
     filter: null,
-  },
-  getState() {
-    return this.state;
-  },
-  addpost(e) {
-    // debugger
-    this.state.alltask.task.push(e)
-    return this.state
   }
 };
 
