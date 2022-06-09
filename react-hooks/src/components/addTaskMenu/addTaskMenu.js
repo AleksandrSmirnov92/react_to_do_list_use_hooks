@@ -3,14 +3,14 @@ import React, { useRef, useState , useEffect} from "react"
 import AddTaskCSS from "./addTaskMenu.module.css"
 
 
-export const AddTaskMenu = (props) => {
+export const AddTaskMenu = ({addTaskk,counter}) => {
   const refText = useRef()
  let [input,setinput] = useState("")
  const taskText = () => {
   setinput(refText.current.value)
   }
- const addTask = () => {
-   props.setStore([...props.getStore,{id: Math.random(), massage: input, checked: false }])
+ const addTask = (input) => {
+  addTaskk(input)
    setinput('')
  }
    return(
@@ -27,7 +27,7 @@ export const AddTaskMenu = (props) => {
 
              />
              <button className={AddTaskCSS.button_add}>
-               <span className={AddTaskCSS.button_add_text} onClick={addTask}>Добавить</span>
+               <span className={AddTaskCSS.button_add_text} onClick={()=>{addTask(input)}}>Добавить</span>
              </button>
            </div>
          </div>
