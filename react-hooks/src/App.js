@@ -5,7 +5,6 @@ import {Header} from "./components/header/header"
 import {AddTaskMenu} from "./components/addTaskMenu/addTaskMenu"
 import {Filter} from "./components/filter/filter"
 import {AllTask} from "./components/allTask/allTask"
-import { render } from '@testing-library/react';
 function App() {
  let storage = []
  let count = 0
@@ -20,64 +19,54 @@ function App() {
   let [addMessage,setaddMessage] = useState(storage)
   let [counter,setCounter] = useState(count)
   let [filter,setFilter] = useState(allFilter)
-
+  let [fal, setfal] = useState(checked)
 
   localStorage.setItem("todo", JSON.stringify(addMessage))
   localStorage.setItem("counter", JSON.stringify(counter))
 
   let addTask = (input) => {
-    setaddMessage([...addMessage,{id: Math.random(), massage: input, checked: checked ,changeColor:false}])
+    setaddMessage([...addMessage,{id: Math.random(), massage: input, checked: checked ,changeColor:false,fall:fal}])
     setCounter(counter + 1)
     localStorage.setItem("todo", JSON.stringify(addMessage))
     localStorage.setItem("counter", JSON.stringify(counter))
   }
  
  let removeTask = (id) => {
-  setaddMessage([...addMessage.filter((addMessage) =>
-        addMessage.id !== id,
-        localStorage.setItem("todo", JSON.stringify(addMessage))
-    )])
-
-    for (let item of addMessage) {
-      if (item.id === id && item.checked === false) {
+        setaddMessage([...addMessage.filter((addMessage) =>
+          addMessage.id !== id,
+          localStorage.setItem("todo", JSON.stringify(addMessage))
+      )])
+      for (let item of addMessage) {
+        if (item.id === id && item.cheked === false) { 
         setCounter(counter - 1)
-        localStorage.setItem("counter", JSON.stringify(counter))
-    break
+      localStorage.setItem("counter", JSON.stringify(counter))
+      break
+      }
     }
-  }
-    // addMessage.forEach((item)=>{
-    //   if (item.id === id && item.checked === false) {
-    //     setCounter(counter - 1)
-    // localStorage.setItem("counter", JSON.stringify(counter))
-    //   }
-    // })
-    
-    
  }
  let changeFilter = (value) => {
       setFilter(filter = value)
       localStorage.setItem("Filter", JSON.stringify(filter))
  }
  let changeCheked = (id) => {
-  addMessage.forEach(element => {
+  addMessage.forEach((element) => {
     if (element.id === id) {
       setTimeout(()=>{
         element.checked = !element.checked
-        setaddMessage([...addMessage])
         localStorage.setItem("todo", JSON.stringify(addMessage))
-        
+        setaddMessage([...addMessage])
       },900)
       element.changeColor = !element.changeColor
-      if (element.changeColor) {
+    
+      if (element.changeColor ) {
         setCounter(counter - 1)
       }
       else {
         setCounter(counter +1)
       }
-      // setaddMessage([...addMessage])
+     
     }
   });
-  // setaddMessage([...addMessage])
    localStorage.setItem("todo", JSON.stringify(addMessage))
  }
   
@@ -94,5 +83,5 @@ function App() {
   );
 }
 
-// localStorage.clear()
+localStorage.clear()
 export default App;
