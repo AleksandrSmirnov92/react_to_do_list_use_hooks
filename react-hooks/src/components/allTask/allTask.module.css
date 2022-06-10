@@ -33,3 +33,12 @@
 .add_task_result_text_remove{
    margin-right: 20px;
 }
+
+
+.add_task_result_text_t{
+  text-decoration: line-through;
+  
+}
+.add_task_chacked_color{
+  background: rgb(253, 188, 186);
+}
