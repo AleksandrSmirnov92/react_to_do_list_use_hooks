@@ -19,13 +19,13 @@ function App() {
   let [addMessage,setaddMessage] = useState(storage)
   let [counter,setCounter] = useState(count)
   let [filter,setFilter] = useState(allFilter)
-  let [fal, setfal] = useState(checked)
+ 
 
   localStorage.setItem("todo", JSON.stringify(addMessage))
   localStorage.setItem("counter", JSON.stringify(counter))
 
   let addTask = (input) => {
-    setaddMessage([...addMessage,{id: Math.random(), massage: input, checked: checked ,changeColor:false,fall:fal}])
+    setaddMessage([...addMessage,{id: Math.random(), massage: input, checked: checked ,changeColor:false}])
     setCounter(counter + 1)
     localStorage.setItem("todo", JSON.stringify(addMessage))
     localStorage.setItem("counter", JSON.stringify(counter))
@@ -83,5 +83,5 @@ function App() {
   );
 }
 
-// localStorage.clear()
+localStorage.clear()
 export default App;

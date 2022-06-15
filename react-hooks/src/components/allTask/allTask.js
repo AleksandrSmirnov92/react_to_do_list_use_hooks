@@ -11,7 +11,7 @@ export const AllTask = ({ addMessage, removeTask, filter, changeCheked ,changeCo
 
   return addMessage.map((x, index) => {
     if (filter === "ALL") {
-      
+      console.log("one")
       return (
         <div
           key={x.id}
