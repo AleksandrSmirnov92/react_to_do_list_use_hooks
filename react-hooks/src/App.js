@@ -37,7 +37,7 @@ function App() {
           localStorage.setItem("todo", JSON.stringify(addMessage))
       )])
       for (let item of addMessage) {
-        if (item.id === id && item.cheked === false) { 
+        if (item.id === id && item.checked === false) { 
         setCounter(counter - 1)
       localStorage.setItem("counter", JSON.stringify(counter))
       break
@@ -83,5 +83,5 @@ function App() {
   );
 }
 
-localStorage.clear()
+// localStorage.clear()
 export default App;
