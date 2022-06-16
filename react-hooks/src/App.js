@@ -10,7 +10,7 @@ function App() {
  let count = 0
  let allFilter = "ALL"
  let checked = false 
- let remove = true
+
   if (localStorage.getItem("todo")) {
     storage = JSON.parse(localStorage.getItem("todo"));
   }
@@ -34,7 +34,7 @@ function App() {
  
  
  let removeTask = (id) => {
-   if (remove) {
+       
         setaddMessage([...addMessage.filter((addMessage) =>
           addMessage.id !== id,
           localStorage.setItem("todo", JSON.stringify(addMessage))
@@ -46,22 +46,31 @@ function App() {
       break
       }
     }
-  }
+  
  }
  let changeFilter = (value) => {
       setFilter(filter = value)
       localStorage.setItem("Filter", JSON.stringify(filter))
  }
+
+ 
+
+
  let changeCheked = (id) => {
-   remove = false
+   
   addMessage.forEach((element) => {
     if (element.id === id) {
-      setTimeout(()=>{
-        element.checked = !element.checked
-        setaddMessage([...addMessage])
-        localStorage.setItem("todo", JSON.stringify(addMessage))
-        remove = true
-      },500)
+      
+      let p = new Promise((resolve, reject) => {
+        setTimeout(()=>{
+          element.checked = !element.checked
+          setaddMessage([...addMessage])
+          localStorage.setItem("todo", JSON.stringify(addMessage))
+         resolve()
+         console.log("chf,jnfk")
+        },1000)
+       }) 
+     
       element.changeColor = !element.changeColor
       
       if (element.changeColor ) {
