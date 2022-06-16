@@ -3,7 +3,7 @@ import React, { useRef, useState , useEffect} from "react"
 import AddTaskCSS from "./addTaskMenu.module.css"
 
 
-export const AddTaskMenu = ({addTaskk,counter}) => {
+export const AddTaskMenu = ({addTaskk}) => {
   const refText = useRef()
  let [input,setinput] = useState("")
  const taskText = () => {

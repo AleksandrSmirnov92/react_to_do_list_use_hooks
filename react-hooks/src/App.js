@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect ,useMemo} from 'react';
 import store from "./store/store"
 import AppCSS from './App.module.css';
 import {Header} from "./components/header/header"
@@ -10,6 +10,7 @@ function App() {
  let count = 0
  let allFilter = "ALL"
  let checked = false 
+ let remove = true
   if (localStorage.getItem("todo")) {
     storage = JSON.parse(localStorage.getItem("todo"));
   }
@@ -31,7 +32,9 @@ function App() {
     localStorage.setItem("counter", JSON.stringify(counter))
   }
  
+ 
  let removeTask = (id) => {
+   if (remove) {
         setaddMessage([...addMessage.filter((addMessage) =>
           addMessage.id !== id,
           localStorage.setItem("todo", JSON.stringify(addMessage))
@@ -43,21 +46,24 @@ function App() {
       break
       }
     }
+  }
  }
  let changeFilter = (value) => {
       setFilter(filter = value)
       localStorage.setItem("Filter", JSON.stringify(filter))
  }
  let changeCheked = (id) => {
+   remove = false
   addMessage.forEach((element) => {
     if (element.id === id) {
       setTimeout(()=>{
         element.checked = !element.checked
-        localStorage.setItem("todo", JSON.stringify(addMessage))
         setaddMessage([...addMessage])
-      },900)
+        localStorage.setItem("todo", JSON.stringify(addMessage))
+        remove = true
+      },500)
       element.changeColor = !element.changeColor
-    
+      
       if (element.changeColor ) {
         setCounter(counter - 1)
       }
@@ -68,6 +74,7 @@ function App() {
     }
   });
    localStorage.setItem("todo", JSON.stringify(addMessage))
+   
  }
   
 
