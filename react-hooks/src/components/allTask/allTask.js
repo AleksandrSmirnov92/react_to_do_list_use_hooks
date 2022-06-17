@@ -5,13 +5,12 @@ export const AllTask = ({ addMessage, removeTask, filter, changeCheked}) => {
     removeTask(id);
   };
   let checkbox = (id) => {
-    // alert("стоит")
     changeCheked(id);
   };
 
-  return addMessage.map((x, index) => {
+  return addMessage.map((x) => {
     if (filter === "ALL") {
-     console.log("render");
+     console.log("render")
       return (
         <Task x = {x} remove = {remove} checkbox = {checkbox}/>
       );
