@@ -5,56 +5,72 @@ import { Header } from "./components/header/header";
 import { AddTaskMenu } from "./components/addTaskMenu/addTaskMenu";
 import { Filter } from "./components/filter/filter";
 import { AllTask } from "./components/allTask/allTask";
+
+const getCounterFromLocalStorage = () => {
+  let counterLocalStorage = JSON.parse(localStorage.getItem("counter"));
+  if (counterLocalStorage) {
+    return JSON.parse(localStorage.getItem("counter"));
+  } else {
+    return 0
+  }
+
+}
+const getTasksFromLocalStorage = () => {
+  let tasksLocalStorage = JSON.parse(localStorage.getItem("todo"));
+  if (tasksLocalStorage) {
+    return JSON.parse(localStorage.getItem("todo"));
+  } else {
+    return []
+  }
+}
+
 function App() {
-  let storage = [];
-  let count = 0;
   let allFilter = "ALL";
   let checked = false;
+  
+  
+  let [tasks, setTasks] = useState(getTasksFromLocalStorage());
+  let [counter, setCounter] = useState(getCounterFromLocalStorage());
 
-  if (localStorage.getItem("todo")) {
-    storage = JSON.parse(localStorage.getItem("todo"));
-  }
-  if (localStorage.getItem("counter")) {
-    count = JSON.parse(localStorage.getItem("counter"));
-  }
-  let [addMessage, setaddMessage] = useState(storage);
-  let [counter, setCounter] = useState(count);
+
   let [filter, setFilter] = useState(allFilter);
-  let [x,setx] = useState(0)
+  let [x, setx] = useState(0);
 
-  localStorage.setItem("todo", JSON.stringify(addMessage));
+
   localStorage.setItem("counter", JSON.stringify(counter));
- console.log(x)
+   useEffect(()=>{
+    setCounter(counter = tasks.length)
+    localStorage.setItem("todo", JSON.stringify(tasks));
+  },[tasks])
   let addTask = (input) => {
-    setaddMessage([
-      ...addMessage,
-      {
-        id: Math.random(),
-        massage: input,
-        checked: checked,
-        changeColor: false,
-      },
-    ]);
-    setCounter(counter + 1);
-    localStorage.setItem("todo", JSON.stringify(addMessage));
+    setTasks(prevTasks => {
+      return [
+        ...prevTasks,
+        {
+          id: Math.random(),
+          massage: input,
+          checked: checked,
+          changeColor: false,
+        },
+      ];
+    });
     localStorage.setItem("counter", JSON.stringify(counter));
   };
 
   let removeTask = (id) => {
-    setaddMessage([
-      ...addMessage.filter(
+    setTasks([
+      ...tasks.filter(
         (addMessage) => addMessage.id !== id,
-        localStorage.setItem("todo", JSON.stringify(addMessage))
       ),
     ]);
-    for (let item of addMessage) {
+    for (let item of tasks) {
       if (item.id === id && item.changeColor === false) {
         setCounter(counter - 1);
         localStorage.setItem("counter", JSON.stringify(counter));
         break;
       }
     }
-    console.log(addMessage);
+    console.log(tasks);
   };
   let changeFilter = (value) => {
     setFilter((filter = value));
@@ -63,10 +79,10 @@ function App() {
 
   let changeCheked = (id) => {
     let p = new Promise((resolve, reject) => {
-      for (let element of addMessage) {
+      for (let element of tasks) {
         if (element.id === id) {
           element.changeColor = !element.changeColor;
-          resolve()
+          resolve();
           if (element.changeColor) {
             setCounter(counter - 1);
           } else {
@@ -77,17 +93,14 @@ function App() {
     });
 
     p.then(() => {
-      for(let element of addMessage) {
+      for (let element of tasks) {
         if (element.id === id) {
-                setTimeout(()=>{
-                  element.checked = !element.checked
-                  setx(x + 1)
-                  // setaddMessage([...addMessage])
-                  localStorage.setItem("todo", JSON.stringify(addMessage))
-                },1000)
-                
-                
-              
+          setTimeout(() => {
+            element.checked = !element.checked;
+            setx(x + 1);
+            // setaddMessage([...addMessage])
+            localStorage.setItem("todo", JSON.stringify(tasks));
+          }, 1000);
         }
       }
     });
@@ -113,7 +126,7 @@ function App() {
 
     // }
     // };
-    localStorage.setItem("todo", JSON.stringify(addMessage));
+    localStorage.setItem("todo", JSON.stringify(tasks));
   };
 
   return (
@@ -122,7 +135,7 @@ function App() {
       <AddTaskMenu addTaskk={addTask} />
       <Filter changeFilter={changeFilter} />
       <AllTask
-        addMessage={addMessage}
+        addMessage={tasks}
         removeTask={removeTask}
         filter={filter}
         changeCheked={changeCheked}

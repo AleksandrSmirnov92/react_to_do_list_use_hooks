@@ -7,7 +7,7 @@ export const AllTask = ({ addMessage, removeTask, filter, changeCheked}) => {
   let checkbox = (id) => {
     changeCheked(id);
   };
-
+ 
   return addMessage.map((x) => {
     if (filter === "ALL") {
      console.log("render")
