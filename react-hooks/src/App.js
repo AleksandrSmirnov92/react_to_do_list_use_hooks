@@ -1,49 +1,45 @@
-import React, { useState, useEffect, useMemo } from "react";
-import store from "./store/store";
-import AppCSS from "./App.module.css";
-import { Header } from "./components/header/header";
-import { AddTaskMenu } from "./components/addTaskMenu/addTaskMenu";
-import { Filter } from "./components/filter/filter";
-import { AllTask } from "./components/allTask/allTask";
+import React, { useState, useEffect, useMemo } from 'react';
+
+import AppCSS from './App.module.css';
+import { Header } from './components/header/header';
+import { AddTaskMenu } from './components/addTaskMenu/addTaskMenu';
+import { Filter } from './components/filter/filter';
+import { AllTask } from './components/allTask/allTask';
 
 const getCounterFromLocalStorage = () => {
-  let counterLocalStorage = JSON.parse(localStorage.getItem("counter"));
+  let counterLocalStorage = JSON.parse(localStorage.getItem('counter'));
   if (counterLocalStorage) {
-    return JSON.parse(localStorage.getItem("counter"));
+    return JSON.parse(localStorage.getItem('counter'));
   } else {
-    return 0
+    return 0;
   }
-
-}
+};
 const getTasksFromLocalStorage = () => {
-  let tasksLocalStorage = JSON.parse(localStorage.getItem("todo"));
+  let tasksLocalStorage = JSON.parse(localStorage.getItem('todo'));
   if (tasksLocalStorage) {
-    return JSON.parse(localStorage.getItem("todo"));
+    return JSON.parse(localStorage.getItem('todo'));
   } else {
-    return []
+    return [];
   }
-}
+};
 
 function App() {
-  let allFilter = "ALL";
+  let allFilter = 'ALL';
   let checked = false;
-  
-  
+
   let [tasks, setTasks] = useState(getTasksFromLocalStorage());
   let [counter, setCounter] = useState(getCounterFromLocalStorage());
-
 
   let [filter, setFilter] = useState(allFilter);
   let [x, setx] = useState(0);
 
-
-  localStorage.setItem("counter", JSON.stringify(counter));
-   useEffect(()=>{
-    setCounter(counter = tasks.length)
-    localStorage.setItem("todo", JSON.stringify(tasks));
-  },[tasks])
+  localStorage.setItem('counter', JSON.stringify(counter));
+  useEffect(() => {
+    setCounter((counter = tasks.length));
+    localStorage.setItem('todo', JSON.stringify(tasks));
+  }, [tasks]);
   let addTask = (input) => {
-    setTasks(prevTasks => {
+    setTasks((prevTasks) => {
       return [
         ...prevTasks,
         {
@@ -54,19 +50,15 @@ function App() {
         },
       ];
     });
-    localStorage.setItem("counter", JSON.stringify(counter));
+    localStorage.setItem('counter', JSON.stringify(counter));
   };
 
   let removeTask = (id) => {
-    setTasks([
-      ...tasks.filter(
-        (addMessage) => addMessage.id !== id,
-      ),
-    ]);
+    setTasks([...tasks.filter((addMessage) => addMessage.id !== id)]);
     for (let item of tasks) {
       if (item.id === id && item.changeColor === false) {
         setCounter(counter - 1);
-        localStorage.setItem("counter", JSON.stringify(counter));
+        localStorage.setItem('counter', JSON.stringify(counter));
         break;
       }
     }
@@ -74,7 +66,7 @@ function App() {
   };
   let changeFilter = (value) => {
     setFilter((filter = value));
-    localStorage.setItem("Filter", JSON.stringify(filter));
+    localStorage.setItem('Filter', JSON.stringify(filter));
   };
 
   let changeCheked = (id) => {
@@ -99,7 +91,7 @@ function App() {
             element.checked = !element.checked;
             setx(x + 1);
             // setaddMessage([...addMessage])
-            localStorage.setItem("todo", JSON.stringify(tasks));
+            localStorage.setItem('todo', JSON.stringify(tasks));
           }, 1000);
         }
       }
@@ -126,7 +118,7 @@ function App() {
 
     // }
     // };
-    localStorage.setItem("todo", JSON.stringify(tasks));
+    localStorage.setItem('todo', JSON.stringify(tasks));
   };
 
   return (
