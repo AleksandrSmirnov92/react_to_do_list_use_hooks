@@ -93,5 +93,5 @@ function App() {
   );
 }
 
-localStorage.clear();
+// localStorage.clear();
 export default App;
