@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react_to_do_list_use_hooks/static/css/main.c1c886e0.css",
+    "main.js": "/react_to_do_list_use_hooks/static/js/main.fd69482e.js",
+    "static/js/787.f2e22480.chunk.js": "/react_to_do_list_use_hooks/static/js/787.f2e22480.chunk.js",
+    "index.html": "/react_to_do_list_use_hooks/index.html",
+    "main.c1c886e0.css.map": "/react_to_do_list_use_hooks/static/css/main.c1c886e0.css.map",
+    "main.fd69482e.js.map": "/react_to_do_list_use_hooks/static/js/main.fd69482e.js.map",
+    "787.f2e22480.chunk.js.map": "/react_to_do_list_use_hooks/static/js/787.f2e22480.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c1c886e0.css",
+    "static/js/main.fd69482e.js"
+  ]
+}
