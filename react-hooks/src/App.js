@@ -24,20 +24,16 @@ const getTasksFromLocalStorage = () => {
 };
 
 function App() {
-  let allFilter = 'ALL';
-  let checked = false;
-
   let [tasks, setTasks] = useState(getTasksFromLocalStorage());
   let [counter, setCounter] = useState(getCounterFromLocalStorage());
+  let [filter, setFilter] = useState('ALL');
 
-  let [filter, setFilter] = useState(allFilter);
-  let [x, setx] = useState(0);
-
-  localStorage.setItem('counter', JSON.stringify(counter));
   useEffect(() => {
-    setCounter((counter = tasks.length));
+    localStorage.setItem('counter', JSON.stringify(counter));
     localStorage.setItem('todo', JSON.stringify(tasks));
-  }, [tasks]);
+    localStorage.setItem('Filter', JSON.stringify(filter));
+  }, [tasks, filter]);
+
   let addTask = (input) => {
     setTasks((prevTasks) => {
       return [
@@ -45,12 +41,11 @@ function App() {
         {
           id: Math.random(),
           massage: input,
-          checked: checked,
           changeColor: false,
         },
       ];
     });
-    localStorage.setItem('counter', JSON.stringify(counter));
+    setCounter(counter + 1);
   };
 
   let removeTask = (id) => {
@@ -58,76 +53,38 @@ function App() {
     for (let item of tasks) {
       if (item.id === id && item.changeColor === false) {
         setCounter(counter - 1);
-        localStorage.setItem('counter', JSON.stringify(counter));
         break;
       }
     }
-    console.log(tasks);
   };
   let changeFilter = (value) => {
     setFilter((filter = value));
-    localStorage.setItem('Filter', JSON.stringify(filter));
   };
 
   let changeCheked = (id) => {
-    let p = new Promise((resolve, reject) => {
-      for (let element of tasks) {
-        if (element.id === id) {
-          element.changeColor = !element.changeColor;
-          resolve();
-          if (element.changeColor) {
+    setTasks([
+      ...tasks.map((item) => {
+        if (item.id === id) {
+          item.changeColor = !item.changeColor;
+          if (item.changeColor) {
             setCounter(counter - 1);
           } else {
             setCounter(counter + 1);
           }
+          return item;
+        } else {
+          return item;
         }
-      }
-    });
-
-    p.then(() => {
-      for (let element of tasks) {
-        if (element.id === id) {
-          setTimeout(() => {
-            element.checked = !element.checked;
-            setx(x + 1);
-            // setaddMessage([...addMessage])
-            localStorage.setItem('todo', JSON.stringify(tasks));
-          }, 1000);
-        }
-      }
-    });
-
-    //  for(let element of addMessage) {
-    // if (element.id === id) {
-    //   let p = new Promise((resolve, reject) => {
-    //     setTimeout(()=>{
-    //       element.checked = !element.checked
-    //       setaddMessage([...addMessage])
-    //       localStorage.setItem("todo", JSON.stringify(addMessage))
-    //       // console.log (addMessage)
-    //      resolve()
-    //     },1000)
-    //    })
-    // element.changeColor = !element.changeColor
-    // if (element.changeColor ) {
-    //   setCounter(counter - 1)
-    // }
-    // else {
-    //   setCounter(counter +1)
-    // }
-
-    // }
-    // };
-    localStorage.setItem('todo', JSON.stringify(tasks));
+      }),
+    ]);
   };
-
   return (
     <div className={`${AppCSS.App} ${AppCSS.AppWrapper}`}>
       <Header counter={counter} />
       <AddTaskMenu addTaskk={addTask} />
       <Filter changeFilter={changeFilter} />
       <AllTask
-        addMessage={tasks}
+        tasks={tasks}
         removeTask={removeTask}
         filter={filter}
         changeCheked={changeCheked}

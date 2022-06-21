@@ -25,7 +25,7 @@ export const Task = ({ x, checkbox, remove }) => {
           id={x.id}
           type="checkbox"
           onClick={() => checkbox(x.id)}
-          defaultChecked={x.checked ? true : false}
+          defaultChecked={x.changeColor ? true : false}
         />
         <button
           id={x.id}
