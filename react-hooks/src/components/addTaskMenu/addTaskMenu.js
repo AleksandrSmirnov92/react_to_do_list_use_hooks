@@ -1,10 +1,9 @@
-import { getSelectionRange } from '@testing-library/user-event/dist/utils';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import AddTaskCSS from './addTaskMenu.module.css';
 
 export const AddTaskMenu = ({ addTaskk }) => {
   const refText = useRef();
-  let [input, setinput] = useState('');
+  const [input, setinput] = useState('');
   const taskText = () => {
     setinput(refText.current.value);
   };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AppCSS from './App.module.css';
 import { Header } from './components/header/header';
@@ -7,7 +7,7 @@ import { Filter } from './components/filter/filter';
 import { AllTask } from './components/allTask/allTask';
 
 const getCounterFromLocalStorage = () => {
-  let counterLocalStorage = JSON.parse(localStorage.getItem('counter'));
+  const counterLocalStorage = JSON.parse(localStorage.getItem('counter'));
   if (counterLocalStorage) {
     return JSON.parse(localStorage.getItem('counter'));
   } else {
@@ -15,7 +15,7 @@ const getCounterFromLocalStorage = () => {
   }
 };
 const getTasksFromLocalStorage = () => {
-  let tasksLocalStorage = JSON.parse(localStorage.getItem('todo'));
+  const tasksLocalStorage = JSON.parse(localStorage.getItem('todo'));
   if (tasksLocalStorage) {
     return JSON.parse(localStorage.getItem('todo'));
   } else {
@@ -24,17 +24,18 @@ const getTasksFromLocalStorage = () => {
 };
 
 function App() {
-  let [tasks, setTasks] = useState(getTasksFromLocalStorage());
-  let [counter, setCounter] = useState(getCounterFromLocalStorage());
-  let [filter, setFilter] = useState('ALL');
+  const [tasks, setTasks] = useState(getTasksFromLocalStorage());
+  const [counter, setCounter] = useState(getCounterFromLocalStorage());
+  const [filter, setFilter] = useState('ALL');
 
   useEffect(() => {
     localStorage.setItem('counter', JSON.stringify(counter));
     localStorage.setItem('todo', JSON.stringify(tasks));
     localStorage.setItem('Filter', JSON.stringify(filter));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, filter]);
 
-  let addTask = (input) => {
+  const addTask = (input) => {
     setTasks((prevTasks) => {
       return [
         ...prevTasks,
@@ -47,21 +48,21 @@ function App() {
     });
     setCounter(counter + 1);
   };
-
-  let removeTask = (id) => {
+  //
+  const removeTask = (id) => {
     setTasks([...tasks.filter((addMessage) => addMessage.id !== id)]);
-    for (let item of tasks) {
+    for (const item of tasks) {
       if (item.id === id && item.changeColor === false) {
         setCounter(counter - 1);
         break;
       }
     }
   };
-  let changeFilter = (value) => {
-    setFilter((filter = value));
+  const changeFilter = (value) => {
+    setFilter(value);
   };
 
-  let changeCheked = (id) => {
+  const changeCheked = (id) => {
     setTasks([
       ...tasks.map((item) => {
         if (item.id === id) {
@@ -71,10 +72,8 @@ function App() {
           } else {
             setCounter(counter + 1);
           }
-          return item;
-        } else {
-          return item;
         }
+        return item;
       }),
     ]);
   };

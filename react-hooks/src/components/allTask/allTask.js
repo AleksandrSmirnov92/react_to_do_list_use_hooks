@@ -1,10 +1,11 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 import { Task } from '../task/task';
 export const AllTask = ({ tasks, removeTask, filter, changeCheked }) => {
-  let remove = (id) => {
+  const remove = (id) => {
     removeTask(id);
   };
-  let checkbox = (id) => {
+  const checkbox = (id) => {
     changeCheked(id);
   };
 
